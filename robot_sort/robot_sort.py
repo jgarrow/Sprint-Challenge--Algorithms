@@ -97,7 +97,33 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
-        pass
+        
+        # use the robot's light to tell us if we've swapped or not
+        while self.light_is_on() is False:
+            # if the light is still on at the end of this block, it will exit the while loop
+            self.set_light_on()
+            
+            # loop while we can still move to the right 
+            while self.can_move_right():
+                self.swap_item()
+                self.move_right()
+
+                # compare_item to see if we need to swap the current item with what we're holding
+
+                # if held item is larger
+                if self.compare_item() == 1:
+                    self.swap_item()
+                    
+                    # turn the light back off because we swapped something and now we need to go through at least one more time to make sure there isn't anything else to swap
+                    self.set_light_off()
+                
+                self.move_left()
+                self.swap_item()
+                self.move_right()
+
+            # move all the way back to the left and then we can start over
+            while self.can_move_left():
+                self.move_left()
 
 
 if __name__ == "__main__":
